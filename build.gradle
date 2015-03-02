@@ -49,20 +49,6 @@ dependencies {
     compile "org.spongepowered:spongeapi:1.1-SNAPSHOT"
 }
 
-// Filter, process, and include resources
-processResources {
-    // Include in final JAR
-    from 'LICENSE.txt'
-
-    filter ReplaceTokens, tokens: [
-            "project.artifactId": rootProject.name,
-            "project.groupId": rootProject.group,
-            "project.version": rootProject.version,
-            "project.archivesBaseName": project.archivesBaseName,
-            "project.description": project.ext.description
-    ]
-}
-
 // License header formatting
 license {
     ext.name = project.name
