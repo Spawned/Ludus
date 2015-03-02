@@ -72,7 +72,7 @@ license {
     exclude "**/*.yml"
     exclude "src/main/resources/**"
     exclude "src/test/resources/**"
-    header file('HEADER.txt')
+    header file('LICENSE')
     sourceSets = project.sourceSets
     ignoreFailures false
     strictCheck true
