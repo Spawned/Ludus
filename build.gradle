@@ -1,0 +1,82 @@
+// Gradle repositories and dependencies
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.11.0'
+    }
+}
+
+// Apply Plugins
+apply plugin: 'java'
+apply plugin: 'license'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+// Default tasks
+defaultTasks 'licenseFormat', 'check', 'build', 'test'
+
+// Basic project information
+group = 'in.spawned'
+archivesBaseName = 'ludus'
+version = 'DEV'
+
+// Extended project information
+ext.projectName = 'Ludus'
+ext.inceptionYear = '2015'
+ext.packaging = 'jar'
+ext.url = 'http://spawned.in'
+ext.description = 'Ludus is an arena and session managing API.'
+ext.organization = 'Spawned'
+
+// Minimum version of Java required
+sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+// Repositories
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {
+        name 'sponge-maven'
+        url 'http://repo.spongepowered.org/maven/'
+    }
+}
+
+// Dependencies
+dependencies {
+    compile "org.spongepowered:spongeapi:1.1-SNAPSHOT"
+}
+
+// Filter, process, and include resources
+processResources {
+    // Include in final JAR
+    from 'LICENSE.txt'
+
+    filter ReplaceTokens, tokens: [
+            "project.artifactId": rootProject.name,
+            "project.groupId": rootProject.group,
+            "project.version": rootProject.version,
+            "project.archivesBaseName": project.archivesBaseName,
+            "project.description": project.ext.description
+    ]
+}
+
+// License header formatting
+license {
+    ext.name = project.name
+    ext.organization = project.organization
+    ext.url = project.url
+    ext.year = project.inceptionYear
+    exclude "**/*.yml"
+    exclude "src/main/resources/**"
+    exclude "src/test/resources/**"
+    header file('HEADER.txt')
+    sourceSets = project.sourceSets
+    ignoreFailures false
+    strictCheck true
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+    }
+}
