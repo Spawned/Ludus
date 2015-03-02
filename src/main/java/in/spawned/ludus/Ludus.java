@@ -16,8 +16,8 @@ public final class Ludus {
     
     private static LudusMod instance = null;
     
-    public static void set(PluginContainer container, Game game, Logger logger,
-                    ConfigurationLoader<CommentedConfigurationNode> configManager, File configFile) {
+    public static void setMod(PluginContainer container, Game game, Logger logger,
+                              ConfigurationLoader<CommentedConfigurationNode> configManager, File configFile) {
         if (Ludus.instance != null) {
             throw new UnsupportedOperationException(Ludus.CNT_REDEFINE);
         }

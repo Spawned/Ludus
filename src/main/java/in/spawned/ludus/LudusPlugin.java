@@ -36,6 +36,6 @@ public class LudusPlugin {
     
     @Subscribe
     public void onInitialization(InitializationEvent init) {
-        Ludus.set(this.container, this.game, this.logger, this.configManager, this.config);
+        Ludus.setMod(this.container, this.game, this.logger, this.configManager, this.config);
     }
 }
