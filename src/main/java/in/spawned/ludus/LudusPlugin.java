@@ -28,8 +28,7 @@ public class LudusPlugin {
     @Inject
     @DefaultConfig(sharedRoot = false)
     private File config;
-    
-    
+
     @Inject
     @DefaultConfig(sharedRoot = false)
     private ConfigurationLoader<CommentedConfigurationNode> configManager;

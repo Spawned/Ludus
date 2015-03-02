@@ -53,12 +53,10 @@ public final class Ludus {
     public static Optional<ConfigurationLoader<CommentedConfigurationNode>> getConfigManager() {
         return Ludus.check() ? Optional.of(Ludus.instance.getConfigManager())
                 : Optional.<ConfigurationLoader<CommentedConfigurationNode>>absent();
-        
     }
     
     public static Optional<File> getConfigFile() {
         return Ludus.check() ? Optional.of(Ludus.instance.getConfigFile())
                 : Optional.<File>absent();
-        
     }
 }
