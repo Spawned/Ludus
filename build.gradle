@@ -40,8 +40,12 @@ compileJava {
 repositories {
     mavenCentral()
     maven {
-        name 'sponge-maven'
-        url 'http://repo.spongepowered.org/maven/'
+        name 'Sponge Repository'
+        url 'http://repo.spongepowered.org/maven'
+    }
+    maven {
+        name 'Sonatype Repository'
+        url 'https://oss.sonatype.org/content/repositories/snapshots'
     }
 }
 
