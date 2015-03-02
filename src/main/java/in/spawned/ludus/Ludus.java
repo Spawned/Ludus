@@ -1,39 +1,66 @@
 package in.spawned.ludus;
 
-public class Ludus {
-    /*
+import com.google.common.base.Optional;
+import com.sun.istack.internal.NotNull;
+import ninja.leaping.configurate.commented.CommentedConfigurationNode;
+import ninja.leaping.configurate.loader.ConfigurationLoader;
+import org.slf4j.Logger;
+import org.spongepowered.api.Game;
+import org.spongepowered.api.plugin.PluginContainer;
 
-	So basically there will be something like this:
-	A session interface will contain 2 methods, init(), destroy() however it will also extend/implement Runnable or SpongeRunnable whatever so people can add a run() method or whatever	
-	We will then have an Arena interface/abstract class (not sure yet) which will be the bridge to the configuration files
-	There will be some sort of hashmap or something like this
-	
-	HashMap<Arena, Session> sessions;
+import java.io.File;
 
-	So then people could implement/extend Arena to create their own custom arenas
-	So something like
-	{
-	
-		class SurvivalGamesArena extends Arena {}
-	
-		and the same for sessions
-
-		class SurvivalGamesSession extends Session {}
-
-		so then we can just do stuff like
-		{
-
-			Ludus.setSession(Arena, Session); // Will call the init() method
-
-			Ludus.isActive(Ludus.getArenas()[0]);
-			if ( Ludus.getArenas()[0] instanceof SurvivalGamesArena) {
-				do stuff
-			}
-
-			Ludus.setSession(Arena, null); // Will call the destroy() method for a session and remove it from the hashmap
-		}
-	}
-
-	
-    */
+public final class Ludus {
+    
+    public static final String CNT_REDEFINE = "Attempted to redefine LudusMod singleton more than once.";
+    
+    private static LudusMod instance = null;
+    
+    public static void set(PluginContainer container, Game game, Logger logger,
+                    ConfigurationLoader<CommentedConfigurationNode> configManager, File configFile) {
+        if (Ludus.instance != null) {
+            throw new UnsupportedOperationException(Ludus.CNT_REDEFINE);
+        }
+        
+        Ludus.instance = new LudusMod(container, game, logger, configManager, configFile);
+    }
+    
+    public static Optional<LudusMod> getMod() {
+        if (Ludus.instance == null) {
+            return Optional.absent();
+        }
+        
+        return Optional.of(Ludus.instance);
+    }
+    
+    private static boolean check() {
+        return Ludus.getMod().isPresent();
+    }
+    
+    public static Optional<PluginContainer> getContainer() {
+        return Ludus.check() ? Optional.of(Ludus.instance.getContainer())
+                : Optional.<PluginContainer>absent();
+    }
+    
+    public static Optional<Game> getGame() {
+        return Ludus.check() ? Optional.of(Ludus.instance.getGame())
+                : Optional.<Game>absent();
+    }
+    
+    public static Optional<Logger> getLogger() {
+        return Ludus.check() ? Optional.of(Ludus.instance.getLogger())
+                : Optional.<Logger>absent();
+    }
+    
+    public static Optional<ConfigurationLoader<CommentedConfigurationNode>> getConfigManager() {
+        return Ludus.check() ? Optional.of(Ludus.instance.getConfigManager())
+                : Optional.<ConfigurationLoader<CommentedConfigurationNode>>absent();
+        
+    }
+    
+    public static Optional<File> getConfigFile() {
+        return Ludus.check() ? Optional.of(Ludus.instance.getConfigFile())
+                : Optional.<File>absent();
+        
+    }
 }
