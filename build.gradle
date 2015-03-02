@@ -10,11 +10,10 @@ buildscript {
 
 // Apply Plugins
 apply plugin: 'java'
-apply plugin: 'license'
 apply plugin: 'maven'
 apply plugin: 'eclipse'
 // Default tasks
-defaultTasks 'licenseFormat', 'check', 'build', 'test'
+defaultTasks 'check', 'build'
 
 // Basic project information
 group = 'in.spawned'
@@ -32,7 +31,10 @@ ext.organization = 'Spawned'
 // Minimum version of Java required
 sourceCompatibility = '1.6'
 targetCompatibility = '1.6'
-[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+compileJava {
+    options.encoding = 'UTF-8'
+}
 
 // Repositories
 repositories {
@@ -47,22 +49,4 @@ repositories {
 // Dependencies
 dependencies {
     compile "org.spongepowered:spongeapi:1.1-SNAPSHOT"
-}
-
-// License header formatting
-license {
-    ext.name = project.name
-    ext.organization = project.organization
-    ext.url = project.url
-    ext.year = project.inceptionYear
-    exclude "**/*.yml"
-    exclude "src/main/resources/**"
-    exclude "src/test/resources/**"
-    header file('LICENSE')
-    sourceSets = project.sourceSets
-    ignoreFailures false
-    strictCheck true
-    mapping {
-        java = 'SLASHSTAR_STYLE'
-    }
 }
