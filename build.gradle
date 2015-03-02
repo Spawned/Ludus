@@ -18,7 +18,7 @@ defaultTasks 'check', 'build'
 // Basic project information
 group = 'in.spawned'
 archivesBaseName = 'ludus'
-version = 'DEV'
+version = '0.1-SNAPSHOT'
 
 // Extended project information
 ext.projectName = 'Ludus'
@@ -39,7 +39,6 @@ compileJava {
 // Repositories
 repositories {
     mavenCentral()
-    mavenLocal()
     maven {
         name 'sponge-maven'
         url 'http://repo.spongepowered.org/maven/'
