@@ -26,22 +26,22 @@ public class LudusMod {
     }
 
     public PluginContainer getContainer() {
-        return container;
+        return this.container;
     }
 
     public Game getGame() {
-        return game;
+        return this.game;
     }
 
     public Logger getLogger() {
-        return logger;
+        return this.logger;
     }
 
     public ConfigurationLoader<CommentedConfigurationNode> getConfigManager() {
-        return configManager;
+        return this.configManager;
     }
 
     public File getConfigFile() {
-        return configFile;
+        return this.configFile;
     }
 }

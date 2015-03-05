@@ -16,26 +16,17 @@ import java.io.File;
 @Plugin(id="ludus", name="Ludus", version="0.1-SNAPSHOT")
 public class LudusPlugin {
     
-    @Inject
-    private PluginContainer container;
+    @Inject private PluginContainer container;
     
-    @Inject
-    private Game game;
+    @Inject private Game game;
     
-    @Inject
-    private Logger logger;
+    @Inject private Logger logger;
     
-    @Inject
-    @DefaultConfig(sharedRoot = false)
-    private File config;
+    @Inject @DefaultConfig(sharedRoot = false) private File config;
+
+    @Inject @DefaultConfig(sharedRoot = false) private ConfigurationLoader<CommentedConfigurationNode> configManager;
     
-    
-    @Inject
-    @DefaultConfig(sharedRoot = false)
-    private ConfigurationLoader<CommentedConfigurationNode> configManager;
-    
-    @Subscribe
-    public void onInitialization(InitializationEvent init) {
-        Ludus.set(this.container, this.game, this.logger, this.configManager, this.config);
+    @Subscribe public void onInitialization(InitializationEvent init) {
+        Ludus.setMod(this.container, this.game, this.logger, this.configManager, this.config);
     }
 }

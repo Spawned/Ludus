@@ -12,14 +12,12 @@ import java.io.File;
 
 public final class Ludus {
     
-    public static final String CNT_REDEFINE = "Attempted to redefine LudusMod singleton more than once.";
-    
     private static LudusMod instance = null;
     
-    public static void set(PluginContainer container, Game game, Logger logger,
-                    ConfigurationLoader<CommentedConfigurationNode> configManager, File configFile) {
+    public static void setMod(PluginContainer container, Game game, Logger logger,
+                              ConfigurationLoader<CommentedConfigurationNode> configManager, File configFile) {
         if (Ludus.instance != null) {
-            throw new UnsupportedOperationException(Ludus.CNT_REDEFINE);
+            throw new UnsupportedOperationException("Attempted to redefine LudusMod singleton more than once.");
         }
         
         Ludus.instance = new LudusMod(container, game, logger, configManager, configFile);
@@ -55,12 +53,10 @@ public final class Ludus {
     public static Optional<ConfigurationLoader<CommentedConfigurationNode>> getConfigManager() {
         return Ludus.check() ? Optional.of(Ludus.instance.getConfigManager())
                 : Optional.<ConfigurationLoader<CommentedConfigurationNode>>absent();
-        
     }
     
     public static Optional<File> getConfigFile() {
         return Ludus.check() ? Optional.of(Ludus.instance.getConfigFile())
                 : Optional.<File>absent();
-        
     }
 }
