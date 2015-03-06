@@ -20,9 +20,13 @@ public final class Ludus {
      * @param logger {@link Logger} for use with Ludus.
      * @param configDir {@link File}, as a directory, which contains configurations / Ludus files.
      */
-    public static void setMod(@NotNull Game game, @NotNull Logger logger, @NotNull File configDir) {
+    public static void setMod(Game game, Logger logger, File configDir) {
         if (Ludus.getMod().isPresent()) {
             throw new UnsupportedOperationException("Attempted to redefine LudusMod singleton more than once.");
+        }
+        
+        if (game == null || logger == null || configDir == null) {
+            throw new UnsupportedOperationException("Why would you do this? :(");
         }
         
         Ludus.instance = new LudusMod(game, logger, configDir);
