@@ -1,9 +1,6 @@
 package in.spawned.ludus;
 
 import com.google.common.base.Optional;
-import com.sun.istack.internal.NotNull;
-import ninja.leaping.configurate.commented.CommentedConfigurationNode;
-import ninja.leaping.configurate.loader.ConfigurationLoader;
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.plugin.PluginContainer;
@@ -14,13 +11,12 @@ public final class Ludus {
     
     private static LudusMod instance = null;
     
-    public static void setMod(PluginContainer container, Game game, Logger logger,
-                              ConfigurationLoader<CommentedConfigurationNode> configManager, File configFile) {
+    public static void setMod(PluginContainer container, Game game, Logger logger, File configDir) {
         if (Ludus.instance != null) {
             throw new UnsupportedOperationException("Attempted to redefine LudusMod singleton more than once.");
         }
         
-        Ludus.instance = new LudusMod(container, game, logger, configManager, configFile);
+        Ludus.instance = new LudusMod(container, game, logger, configDir);
     }
     
     public static Optional<LudusMod> getMod() {
@@ -50,13 +46,8 @@ public final class Ludus {
                 : Optional.<Logger>absent();
     }
     
-    public static Optional<ConfigurationLoader<CommentedConfigurationNode>> getConfigManager() {
-        return Ludus.check() ? Optional.of(Ludus.instance.getConfigManager())
-                : Optional.<ConfigurationLoader<CommentedConfigurationNode>>absent();
-    }
-    
-    public static Optional<File> getConfigFile() {
-        return Ludus.check() ? Optional.of(Ludus.instance.getConfigFile())
+    public static Optional<File> getConfigDir() {
+        return Ludus.check() ? Optional.of(Ludus.instance.getConfigDir())
                 : Optional.<File>absent();
     }
 }
