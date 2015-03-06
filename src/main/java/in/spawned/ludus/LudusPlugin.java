@@ -15,8 +15,7 @@ import java.io.File;
 @Plugin(id="ludus", name="Ludus", version="0.1-SNAPSHOT")
 public class LudusPlugin {
     
-    @Inject
-    private PluginContainer container;
+    @Inject private PluginContainer container;
     
     @Inject private Game game;
     

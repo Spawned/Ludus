@@ -12,7 +12,7 @@ public final class Ludus {
     private static LudusMod instance = null;
     
     public static void setMod(PluginContainer container, Game game, Logger logger, File configDir) {
-        if (Ludus.instance != null) {
+        if (Ludus.getMod().isPresent()) {
             throw new UnsupportedOperationException("Attempted to redefine LudusMod singleton more than once.");
         }
         
@@ -20,34 +20,27 @@ public final class Ludus {
     }
     
     public static Optional<LudusMod> getMod() {
-        if (Ludus.instance == null) {
-            return Optional.absent();
-        }
-        
-        return Optional.of(Ludus.instance);
-    }
-    
-    private static boolean check() {
-        return Ludus.getMod().isPresent();
+        return Ludus.instance != null ? Optional.of(Ludus.instance)
+                : Optional.<LudusMod>absent();
     }
     
     public static Optional<PluginContainer> getContainer() {
-        return Ludus.check() ? Optional.of(Ludus.instance.getContainer())
+        return Ludus.getMod().isPresent() ? Optional.of(Ludus.instance.getContainer())
                 : Optional.<PluginContainer>absent();
     }
     
     public static Optional<Game> getGame() {
-        return Ludus.check() ? Optional.of(Ludus.instance.getGame())
+        return Ludus.getMod().isPresent() ? Optional.of(Ludus.instance.getGame())
                 : Optional.<Game>absent();
     }
     
     public static Optional<Logger> getLogger() {
-        return Ludus.check() ? Optional.of(Ludus.instance.getLogger())
+        return Ludus.getMod().isPresent() ? Optional.of(Ludus.instance.getLogger())
                 : Optional.<Logger>absent();
     }
     
     public static Optional<File> getConfigDir() {
-        return Ludus.check() ? Optional.of(Ludus.instance.getConfigDir())
+        return Ludus.getMod().isPresent() ? Optional.of(Ludus.instance.getConfigDir())
                 : Optional.<File>absent();
     }
 }
