@@ -6,6 +6,7 @@ import in.spawned.ludus.interfaces.Session;
 import org.spongepowered.api.entity.player.Player;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Manages the registering and getting of arenas. All methods are static.
@@ -23,8 +24,7 @@ public class Arenas {
      * @return An optional object with the arena if found
      */
     public static Optional<Arena> get(String s) {
-        // TODO: Arenas.get(s)
-        return null;
+        return Optional.fromNullable(arenas.get(s));
     }
 
     /**
@@ -33,8 +33,10 @@ public class Arenas {
      * @return An optional object with the arena the player is in if found
      */
     public static Optional<Arena> get(Player p) {
-        // TODO: Arenas.get(p)
-        return null;
+        for (Arena a : arenas.values()){
+            if (a.hasPlayer(p)) return Optional.of(a);
+        }
+        return Optional.absent();
     }
 
     /**
@@ -43,8 +45,23 @@ public class Arenas {
      * @return An optional object with the arena for that session if found
      */
     public static Optional<Arena> get(Session s) {
-        // TODO: Arenas.get(s)
-        return null;
+        for (Arena a : arenas.values()){
+            if (a.getSession() == s) return Optional.of(a);
+        }
+        return Optional.absent();
     }
 
+    /**
+     * Gets the name of a given arena
+     * @param a The arena
+     * @return An optional object containing the name or nothing
+     */
+    public static Optional<String> nameOf(Arena a){
+        for (Map.Entry<String, Arena> entry : arenas.entrySet()) {
+            if (a.equals(entry.getValue())) {
+                return Optional.of(entry.getKey());
+            }
+        }
+        return Optional.absent();
+    }
 }

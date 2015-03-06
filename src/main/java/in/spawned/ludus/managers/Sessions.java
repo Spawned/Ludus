@@ -1,6 +1,7 @@
 package in.spawned.ludus.managers;
 
 import com.google.common.base.Optional;
+import in.spawned.ludus.interfaces.Arena;
 import in.spawned.ludus.interfaces.Session;
 import org.spongepowered.api.entity.player.Player;
 
@@ -14,8 +15,9 @@ public class Sessions {
      * @return An optional object containing the arena's session if found
      */
     public static Optional<Session> get(String s) {
-        // TODO: Sessions.get(s)
-        return null;
+        Optional<Arena> a = Arenas.get(s);
+        if (a.isPresent()) return Optional.of(a.get().getSession());
+        else return Optional.absent();
     }
 
     /**
@@ -24,7 +26,8 @@ public class Sessions {
      * @return An optional object containing the arena's session if found
      */
     public static Optional<Session> get(Player p) {
-        // TODO: Sessions.get(p)
-        return null;
+        Optional<Arena> a = Arenas.get(p);
+        if (a.isPresent()) return Optional.of(a.get().getSession());
+        else return Optional.absent();
     }
 }

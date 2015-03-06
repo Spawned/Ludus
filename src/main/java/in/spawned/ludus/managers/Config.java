@@ -20,9 +20,8 @@ public class Config {
      * Gets the root configuration for Ludus
      * @return The Configuration for Ludus
      */
-    public static Config root() {
-        // TODO: Config.root()
-        return null;
+    public static com.typesafe.config.Config root() {
+        return ConfigFactory.load("ludus.root");
     }
 
     /**
@@ -30,9 +29,9 @@ public class Config {
      * @param s The name of the arena
      * @return An optional object containing the configuration or nothing if the arena isn't found
      */
-    public static Optional<Config> arena(String s) {
-        // TODO: Config.arena(s)
-        return null;
+    public static Optional<com.typesafe.config.Config> arena(String s) {
+        if (Arenas.get(s).isPresent()) return Optional.of(configFactory.load("ludus.arenas." + s));
+        return Optional.absent();
     }
 
     /**
@@ -40,9 +39,8 @@ public class Config {
      * @param a The arena to find the configuration for
      * @return The configuration for that arena
      */
-    public static Config arena(Arena a) {
-        // TODO implement here
-        return null;
+    public static com.typesafe.config.Config arena(Arena a) {
+        return configFactory.load("ludus.arenas." + Arenas.nameOf(a).get());
     }
 
     /**
@@ -50,9 +48,9 @@ public class Config {
      * @param s The name of the arena
      * @return An optional object containing the configuration or nothing if the arena wasn't found
      */
-    public static Optional<Config> session(String s) {
-        // TODO: Config.session(s)
-        return null;
+    public static Optional<com.typesafe.config.Config> session(String s) {
+        if (Arenas.get(s).isPresent()) return Optional.of(configFactory.load("ludus.sessions." + s));
+        return Optional.absent();
     }
 
     /**
@@ -60,16 +58,15 @@ public class Config {
      * @param a The arena
      * @return The configuration for the session of the given arena
      */
-    public static Config session(Arena a) {
-        // TODO implement here
-        return null;
+    public static com.typesafe.config.Config session(Arena a) {
+        return configFactory.load("ludus.sessions." + Arenas.nameOf(a).get());
     }
 
     /**
      * Initialises the ConfigFactory and sets the defaults for the root config.
      */
     public static void init() {
-        // TODO: Config.init()
+        // Not yet needed
     }
 
 }
