@@ -19,7 +19,12 @@ public class LudusPlugin {
     @Inject private Logger logger;
     
     @Inject @ConfigDir(sharedRoot = false) private File configDir;
-    
+
+    /**
+     * Catches the {@link InitializationEvent} and gathers necessary information
+     * before initializing {@link LudusMod}.
+     * @param init InitializationEvent which triggers during boot/reload
+     */
     @Subscribe public void onInitialization(InitializationEvent init) {
         Ludus.setMod(this.game, this.logger, this.configDir);
     }
